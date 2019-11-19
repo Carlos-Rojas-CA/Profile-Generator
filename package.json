@@ -10,9 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
-    "electron": "^7.1.1",
-    "electron-html-to": "^2.6.0",
-    "github-personal-stars": "^1.1.1",
     "html-pdf": "^2.2.0",
     "inquirer": "^6.5.0"
   }

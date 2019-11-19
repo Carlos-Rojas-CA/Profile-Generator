@@ -3,7 +3,6 @@ const axios = require("axios");
 const fs = require("fs");
 var pdf = require('html-pdf');
 var options = { format: 'Tabloid', orientation: "portrait" };
-const countPersonalStars = require('github-personal-stars')
 const util = require("util");
 const g_html = require('./generateHTML.js')
 
