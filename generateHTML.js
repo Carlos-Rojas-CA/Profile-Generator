@@ -1,9 +1,9 @@
 const colors = {
   green: {
-    wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
+    wrapperBackground: "#1d962d",
+    headerBackground: "#2cc78c",
     headerColor: "black",
-    photoBorderColor: "#black"
+    photoBorderColor: "black"
   },
   blue: {
     wrapperBackground: "#5F64D3",
