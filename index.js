@@ -8,7 +8,7 @@ const g_html = require('./generateHTML.js')
 
 const writeFileAsync = util.promisify(fs.writeFile);
 var html;
-var asdf = "blank";
+var starsAwesomeFunctionReturn = 0;
 
 
 const questions = ["What is your GitHub username?", "What is your favorite color?"];
@@ -35,6 +35,23 @@ function promptUser() {
   ])
 }
 
+function starCountingAwesomeFunction(data){
+  const queryUrl = `https://api.github.com/users/${data.user}/repos?per_page=100`;
+
+  axios.get(queryUrl).then(function(res) {
+    const repoStars = res.data.map(function(repo) {
+      return repo.stargazers_count;
+    });
+    // console.log(repoStars)
+    repoStars.forEach(el => {
+      starsAwesomeFunctionReturn+= el;
+    })
+    // console.log(starsAwesomeFunctionReturn)
+    gitHubCall(data)
+    
+  });
+};
+
 function gitHubCall(data){
     const userName = data.user;
     const favColor = data.color;
@@ -57,15 +74,15 @@ function gitHubCall(data){
             userProfile: res.data.html_url,
             userBio: res.data.bio,
             color: favColor,
-            stars: res.data.stars,
+            stars: starsAwesomeFunctionReturn,
             blog: res.data.blog
         }
-        userObject.stars = asdf;
+        userObject.stars = starsAwesomeFunctionReturn;
         
-        console.log("thing is:" + asdf)
-        console.log(userObject)
+        // console.log("thing is:" + starsAwesomeFunctionReturn)
+        // console.log(userObject)
         const htmlUser = g_html.generateHTML(userObject);
-        //writeFileAsync("index.html", htmlUser);
+        // writeFileAsync("index.html", htmlUser);
         pdf.create(htmlUser, options).toFile(`./${userName}.pdf`, function(err, res) {
             if (err) return console.log(err);
             console.log(res);
@@ -80,9 +97,10 @@ function gitHubCall(data){
 promptUser()
     .then(function(answers) {
       // countPersonalStars(answers.user, (err, total) => {
-      //   asdf = total
+      //   starsAwesomeFunctionReturn = total
       // })
-        gitHubCall(answers);
+      starCountingAwesomeFunction(answers);
+      //gitHubCall(answers);
   })
   .then(function() {
     console.log("Successfully wrote to index.html");
